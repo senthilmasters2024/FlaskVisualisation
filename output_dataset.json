@@ -1,0 +1,152 @@
+[
+  {
+    "FileName1": "ChristianoRonaldo.txt",
+    "FileName2": "Aspirin.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.0745573129865758
+  },
+  {
+    "FileName1": "ChristianoRonaldo.txt",
+    "FileName2": "iboprofen.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.09892409667345783
+  },
+  {
+    "FileName1": "ChristianoRonaldo.txt",
+    "FileName2": "JobRequirement.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.1251228100229338
+  },
+  {
+    "FileName1": "ChristianoRonaldo.txt",
+    "FileName2": "paracetomol.txt.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.05202798740282131
+  },
+  {
+    "FileName1": "ChristianoRonaldo.txt",
+    "FileName2": "SachinTendulkarNewsArticle.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.3934906410189472
+  },
+  {
+    "FileName1": "JobProfileCDeveloper.txt",
+    "FileName2": "Aspirin.txt",
+    "domain": "jobvacancy",
+    "SimilarityScore": -0.016671588633481765
+  },
+  {
+    "FileName1": "JobProfileCDeveloper.txt",
+    "FileName2": "iboprofen.txt",
+    "domain": "jobvacancy",
+    "SimilarityScore": 0.006328921469749693
+  },
+  {
+    "FileName1": "JobProfileCDeveloper.txt",
+    "FileName2": "JobRequirement.txt",
+    "domain": "jobvacancy",
+    "SimilarityScore": 0.6867096584804047
+  },
+  {
+    "FileName1": "JobProfileCDeveloper.txt",
+    "FileName2": "paracetomol.txt.txt",
+    "domain": "jobvacancy",
+    "SimilarityScore": 0.0038293342461595413
+  },
+  {
+    "FileName1": "JobProfileCDeveloper.txt",
+    "FileName2": "SachinTendulkarNewsArticle.txt",
+    "domain": "jobvacancy",
+    "SimilarityScore": 0.1351006620409974
+  },
+  {
+    "FileName1": "MedicalHistory.txt",
+    "FileName2": "Aspirin.txt",
+    "domain": "Medical-MedicationSuggestion",
+    "SimilarityScore": 0.33208444956192307
+  },
+  {
+    "FileName1": "MedicalHistory.txt",
+    "FileName2": "iboprofen.txt",
+    "domain": "Medical-MedicationSuggestion",
+    "SimilarityScore": 0.23698389857031704
+  },
+  {
+    "FileName1": "MedicalHistory.txt",
+    "FileName2": "JobRequirement.txt",
+    "domain": "Medical-MedicationSuggestion",
+    "SimilarityScore": 0.15863630520591507
+  },
+  {
+    "FileName1": "MedicalHistory.txt",
+    "FileName2": "paracetomol.txt.txt",
+    "domain": "Medical-MedicationSuggestion",
+    "SimilarityScore": 0.23842111183084183
+  },
+  {
+    "FileName1": "MedicalHistory.txt",
+    "FileName2": "SachinTendulkarNewsArticle.txt",
+    "domain": "Medical-MedicationSuggestion",
+    "SimilarityScore": 0.16846644655126775
+  },
+  {
+    "FileName1": "MSDhoni.txt",
+    "FileName2": "Aspirin.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.026781352816232326
+  },
+  {
+    "FileName1": "MSDhoni.txt",
+    "FileName2": "iboprofen.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.010943313424591008
+  },
+  {
+    "FileName1": "MSDhoni.txt",
+    "FileName2": "JobRequirement.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.11492607455133334
+  },
+  {
+    "FileName1": "MSDhoni.txt",
+    "FileName2": "paracetomol.txt.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.022093273332576595
+  },
+  {
+    "FileName1": "MSDhoni.txt",
+    "FileName2": "SachinTendulkarNewsArticle.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.5417528194005539
+  },
+  {
+    "FileName1": "SachinTendulkar.txt",
+    "FileName2": "Aspirin.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.0750218405991634
+  },
+  {
+    "FileName1": "SachinTendulkar.txt",
+    "FileName2": "iboprofen.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.052371559734213764
+  },
+  {
+    "FileName1": "SachinTendulkar.txt",
+    "FileName2": "JobRequirement.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.10647366587300088
+  },
+  {
+    "FileName1": "SachinTendulkar.txt",
+    "FileName2": "paracetomol.txt.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.0873914865020664
+  },
+  {
+    "FileName1": "SachinTendulkar.txt",
+    "FileName2": "SachinTendulkarNewsArticle.txt",
+    "domain": "Unknown",
+    "SimilarityScore": 0.7396050963580121
+  }
+]

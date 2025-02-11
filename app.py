@@ -5,7 +5,11 @@ from flask import Flask, render_template_string
 import os
 
 # Load the dataset
-file_path = "C:/Users/ASUS/source/repos/Tech_Tweakers/SemanticaAnalysisTextualData/SemanticaAnalysisTextualData/bin/Debug/net8.0/data/output_dataset.json"
+# Get the path of the current script
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Define the relative path to your file
+file_path = os.path.join(current_directory, 'data', 'output_dataset.json')
 with open(file_path, "r") as file:
     data = json.load(file)
 

@@ -95,13 +95,47 @@ The `Experiment` constructor accepts an `IConfigurationSection` and binds to you
 ```jsonc
 // appsettings.json (example)
 {
-  "MyExperiment": {
-    "GroupId": "ML 24/25-09",
-    "AzureStorage": {
-      "ConnectionString": "DefaultEndpointsProtocol=...",
-      "ClassificationResultsTable": "ClassificationResults"
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
     }
-  }
+  },
+
+    "MyConfig": {
+        "GroupId": "prof",
+        //"StorageConnectionString": "UseDevelopmentStorage=true;",
+        "StorageConnectionString": "",
+        //"StorageConnectionString": "",
+        "TrainingContainer": "trainingdocuments",
+        "DocumentToClassifyContainer": "documentstoclassify",
+        "RequirementContainer": "requirementdocuments",
+        "ClassifiedDocuments": "classifieddocuments",
+        "ClassificationResultsTable": "ClassificationResults",
+        "PhraseComparisonContainer": "phrasecomparsioncontainer",
+        "DocumentEmbeddings": "documentembeddings",
+        "Queue": "trigger-queue",
+        "RequirementCategoryFolders": [
+            "developerprofiles",
+            "devopsprofiles",
+            "healthcareprofiles",
+            "healtharticles",
+            "sportarticles",
+            "resumes",
+            "crimearticles"
+        ],
+        "TrainingCategoryFolders": [
+            "developerprofiles",
+            "devopsprofiles",
+            "healthcareprofiles",
+            "healtharticles",
+            "sportarticles",
+            "resumes",
+            "crimearticles"
+        ]
+    } 
 }
 ```
 

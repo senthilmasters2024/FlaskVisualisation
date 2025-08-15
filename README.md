@@ -55,7 +55,7 @@ The experiment execution begins when a queue message containing metadata trigger
   <img src="https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2024-2025/blob/TechTweakers/Source/MyCloudProjectSample/Documentation/Images/DataFlowArchitecture.png" width="1000" />
 </p>
 <p align="center">
-  <em>Figure 2. Data Flow Architecture.</em>
+  <em>Figure 3. Data Flow Architecture.</em>
 </p>
 
 Once triggered, the experiment follows these main stages:

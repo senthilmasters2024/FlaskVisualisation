@@ -16,7 +16,7 @@
 
 ## Introduction
 
-This project analyzes semantic similarity for both documents and phrases using OpenAI embeddings, KNN classification, and an Azure-based pipeline. The system preprocesses text (tokenization, lemmatization, stopword removal), generates embeddings, classifies documents across multiple domains, and computes cross-document similarity. Results are written to Azure Blob Storage and Azure Table Storage.
+This project analyzes semantic similarity for both documents and phrases using OpenAI embeddings, KNN classification, and an Azure-based pipeline. The system preprocesses text aims at (tokenization, lemmatization, stopword removal in SE Project but focused on chunking and classification in cloud), generates embeddings, classifies documents across multiple domains, and computes cross-document similarity. Results are written to Azure Blob Storage and Azure Table Storage.
 The app is built in C# (.NET 8), fully Dockerized, and runs cloud-natively on Azure using Azure Container Registry (ACR), Azure Container Instances (ACI), and Azure Queue triggers for asynchronous processing.
 
 [SE Project Documentation PDF link](https://github.com/senthilmasters2024/Tech_Tweakers/blob/main/SemanticAnalysisTextualData/SemanticAnalysisTextualData/Documentation/SemanticSimilarityAnalysisTextualData.pdf)

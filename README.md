@@ -3,7 +3,9 @@
 ## Contents
 
 - [Introduction](#intro)
+- [Project Overview](#projview)
 - [Inputs and Outputs](#inputoutput)
+- [Getting Started with Semantic Similarity Analysis](#prerequisites)
 - [Experimental Flow of SE project](#seproj)
 - [Experiment Execution on Azure](#azureproj)
 - [How to run the experiment](#run)
@@ -14,62 +16,101 @@
 
 ## Introduction
 
-This project focuses on analyzing semantic similarity between documents and phrases using OpenAI embeddings, KNN classification, and Azure-based infrastructure. The system performs preprocessing (including lemmatization and stopword removal), generates text embeddings, classifies documents, compares them across domains, and stores results in Azure Table and Blob storage. It is built using C# .NET 8, fully Dockerized, and integrated with Azure Queue triggers and cloud containers.
-
-To enable scalable deployment, the application has been containerized with Docker and integrated into a cloud-native workflow on Microsoft Azure. The solution uses Azure Container Registry and Azure Container Instances for hosting and execution, while message queue-based input processing ensures asynchronous, efficient data handling. Resulting similarity outputs are stored in Azure Blob Storage, and system performance is monitored using Azure observability tools. This cloud-based architecture supports robust, real-time document comparison and serves as a foundation for future enhancements in NLP-driven applications.
+This project analyzes semantic similarity for both documents and phrases using OpenAI embeddings, KNN classification, and an Azure-based pipeline. The system preprocesses text (tokenization, lemmatization, stopword removal), generates embeddings, classifies documents across multiple domains, and computes cross-document similarity. Results are written to Azure Blob Storage and Azure Table Storage.
+The app is built in C# (.NET 8), fully Dockerized, and runs cloud-natively on Azure using Azure Container Registry (ACR), Azure Container Instances (ACI), and Azure Queue triggers for asynchronous processing.
 
 [SE Project Documentation PDF link](https://github.com/senthilmasters2024/Tech_Tweakers/blob/main/SemanticAnalysisTextualData/SemanticAnalysisTextualData/Documentation/SemanticSimilarityAnalysisTextualData.pdf)
 
-<a name="inputs-and-outputs"></a>
+<a name="projview"></a>
 
- Inputs and Outputs
+## Project Overview
 
----
+This section provides a high-level overview of the system, covering both the experimental workflow and the cloud deployment architecture.
 
-## Project Architecture
+### Cloud architecture
+
+The system is designed as a fully cloud-native solution leveraging Microsoft Azure services:
 
 <p align="center">
   <img src="https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2024-2025/blob/TechTweakers/Source/MyCloudProjectSample/Documentation/Images/ProjectArchitecture.png" width="1000" />
 </p>
 <p align="center">
-  <em>Figure 1. Project Architecture: This diagram illustrates the basic architecture of the project in Azure.</em>
+  <em>Figure 2. Project Architecture.</em>
 </p>
 
-Below is the description of data flow through-out the experiment.
+- **Docker** — Packages the application with all dependencies for consistent deployment.  
+- **Azure Container Registry (ACR)** — Stores and manages the Docker images for deployment.  
+- **Azure Container Instances (ACI)** — Runs the experiment workloads in a managed, isolated container environment.  
+- **Azure Blob Storage** — Holds training datasets, documents to classify, requirement documents, classified outputs, and generated embeddings.  
+- **Azure Queue Storage** — Triggers experiment execution through event-driven messages containing metadata and file locations.  
+- **Azure Table Storage** — Stores structured outputs such as classification results, document similarity scores, phrase similarity results, and experiment metadata.  
+- **Azure Resource Groups** — Logical grouping to manage and control access to related cloud resources.  
 
-## DataFlow Architecture
+
+### Data Flow Architecture
+
+The experiment execution begins when a queue message containing metadata triggers the process.
 
 <p align="center">
   <img src="https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2024-2025/blob/TechTweakers/Source/MyCloudProjectSample/Documentation/Images/DataFlowArchitecture.png" width="1000" />
 </p>
 <p align="center">
-  <em>Figure 2. Data Flow Architecture: This diagram illustrates the basic data flow architecture of the project inside experiment.</em>
+  <em>Figure 2. Data Flow Architecture.</em>
 </p>
 
-Below is the description of elements which are used through-out the project.
+Once triggered, the experiment follows these main stages:
 
----
+- **Queue Trigger** — A queue message containing experiment metadata and input file locations wakes up the experiment runner.
+- **Training** — `trainingdocuments` container is read; text is extracted from labeled PDFs and converted into embeddings for k-NN model training.
+- **Classification** — `documentstoclassify` container is processed; embeddings are generated and compared to the training set to assign predicted labels.
+- **Store Classified Files** — Input files are saved into `classifieddocuments` container, organized by predicted label.
+- **Requirement Comparison** — Embeddings from classified files are compared to those in the `requirementdocuments` container; similarity scores are stored in `DocumentSimilarityResults`.
+- **Phrase Similarity (Optional)** — If CSVs are present in `phrasecomparsioncontainer`, phrase-level similarity is calculated and stored in `PhraseSimilarityResults`.
+- **Results Storage** — All outputs, including embeddings (optional) and classification results, are written to **Azure Blob Storage** and **Azure Table Storage**.
+
+
+<a name="inputs-and-outputs"></a>
+
 ## Inputs and Outputs
+
 
 ### Input:
 
-The Semantic Similarity Analysis system accepts three types of textual inputs: individual words, phrases, and full-length documents. Inputs are organized into two main folders, which contains source documents used as references, and the other one which holds the target documents to be compared. Each source document is evaluated against one or more target documents to determine semantic similarity. For document-level comparisons, inputs must be in plain .txt format, while phrase-level comparisons can be provided via CSV files.The experiment is designed to accept a variety of input types depending on the analysis being performed. Once the inputs are received in the Azure-hosted container instance(via Docker and Azure Container Registry), they are processed and embedded using OpenAI's embedding API. Final similarity outputs are stored in Azure Blob Storage for further analysis, while application health and performance are monitored through integrated Azure diagnostics. This cloud-integrated input pipeline enables real-time, scalable semantic analysis across diverse datasets with minimal manual intervention.
+The Semantic Similarity Analysis system accepts words and phrases, and also full-length documents as inputs. These are stored in Azure Blob Storage according to their role in the experiment, processed to plain text or read directly, and then embedded using OpenAI’s API inside an Azure Container Instance.
 
-missing: Image
+- **TrainingDocuments** — Labeled PDFs per domain (*Resume, Health, Sport, Crime*) for KNN training (50–100 per domain).
+- **DocumentsToClassify** — Unlabeled PDFs for classification into one of the supported domains.
+- **RequirementDocuments** — One reference PDF per domain for document similarity comparison.
+- **Phrases** *(Optional)* — CSV files containing phrase pairs for phrase-level similarity analysis.
+
 
 ### Output: 
 
-Primary outputs include CSV files containing document-level similarity scores (e.g., cosine similarity), phrase-level similarity results using OpenAI embeddings, and predicted classification labels based on the KNN algorithm. In parallel, structured results are logged into Azure Table Storage across tables like ClassificationResults,DocumentSimilarityResults, and PhraseSimilarityResults to support efficient querying and analysis. All output files, including CSVs and optional embeddings, are uploaded to Azure Blob Storage for centralized access and integration with other cloud services. This setup ensures the results are both easy to interpret and ready for further automated processing or evaluation.
+The system produces the following outputs:
+- **Classified Documents** — PDFs sorted into per-domain subfolders in Blob Storage (e.g., `/classified/resume`, `/classified/health`, etc.).
+- **Classification Results (Table)** — Records in Azure Table Storage containing predicted labels and document metadata.
+- **Document Similarity Results (Table)** — Cosine similarity scores between each classified document and its corresponding requirement document.
+- **Phrase Similarity Results (Table)** *(Optional)* — Similarity scores for each phrase pair from the Phrases container.
+- **Embeddings** *(Optional)* — Cached vector embeddings for re-use in future processing.
 
-missing: Add Image
+<a name="prerequisites"></a>
 
-3. What your algorithmas does? How ?
+## Getting Started with Semantic Similarity Analysis
+
+**Prerequisites**
+
+- [**Docker Desktop**](https://www.docker.com/products/docker-desktop)
+- [**Azure CLI**](https://learn.microsoft.com/cli/azure/install-azure-cli)
+- **Microsoft Azure Account** ([Create one](https://portal.azure.com))
+- **OpenAI API Key** ([Get one](https://platform.openai.com/))
+
+
 
 <a name="workflow"></a>
 
 ## Experimental Flow of SE Project
 
-A brief step by step description of the SE project is as follows:
+The Semantic Similarity Analysis algorithm classifies documents into predefined domains and measures their similarity to reference documents or phrases. It processes text inputs, generates vector embeddings using OpenAI models, applies a k-NN classifier for category prediction, and calculates cosine similarity scores for both documents and phrases.A brief step by step description of the SE project is as follows:
 
 ### 1. Input Processing
 
@@ -115,16 +156,15 @@ Requirement docs vs classified docs are compared within shared domains.Similarit
 Phrases from input CSV are embedded and compared.Results are saved as CSV and pushed to Azure Tables.
 
 ### 6. Result Upload
-CSV files are uploaded to Azure Blob. Metadata and logs are written to Azure Tables.
+All experiment outputs are saved to Azure Storage. The document embeddings in the documentembeddings container, classified outputs in the classifiedoutput container, and associated metadata/scores in Azure Tables.
 
 
 <a name="execution-on-azure"></a>
 
 ## Experiment Execution on Azure
 
-### 1. create an Azure Container registry (ACR)
+### 1. Create an Azure Container registry (ACR)
 
-"image can be added"
 
 ### 2. Add Docker support and build image locally
 
@@ -135,42 +175,89 @@ docker build -t mycloudproject
 ```
 
 
-### 3. Login to ACR and push the image
+### 3. Login to Azure, Manage ACR, and Run the Container
 
 ```bash
 
 # log in to Azure and to ACR
 az login
-az acr login -n $ACR
+az acr login -n <account-name>
 
-# find your local image
+# find the local image
 docker images
 
 # tag & push
 docker tag mycloudproject:latest $ACR.azurecr.io/mycloudproject:v1
 docker push $ACR.azurecr.io/mycloudproject:v1
 
+# Pull image from ACR
+docker pull <account-name>.azurecr.io/mycloudproject:v1
+
+# Run with default configuration
+docker run -it <account-name>.azurecr.io/mycloudproject:v1
+
+# Or run with custom appsettings.json
+docker run -it -v $(pwd)/appsettings.json:/app/appsettings.json <account-name>.azurecr.io/mycloudproject:v1
+
 ```
 
 ### 4. Create an Azure storage accout and the required blob containers
 
-```bash
+The following containers needs to be created:
 
+- **trainingdocuments** – Stores the training dataset for each domain.
+- **actualdocuments** – Contains the documents to be classified.
+- **requirementdocuments** – Holds one reference document per domain for comparison.
+- **phrasecomparisoncontainer** – Contains CSV files for phrase-level similarity tasks.
+- **classifiedoutput** *(outputs)* – Stores the classified documents.
+- **documentembeddings** *(outputs)* – Stores computed embeddings for documents.
+
+### 5.Configuration (appsettings.json) 
+Before running the experiment, create an `appsettings.json` file in the project root.  This file contains Azure Storage connection settings, container names, table names, and category folders used for training and requirement matching.
+```json
+{
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Information",
+      "Microsoft": "Information"
+    }
+  },
+  "MyConfig": {
+    "StorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=YOUR_STORAGE_ACCOUNT;AccountKey=YOUR_KEY;EndpointSuffix=core.windows.net",
+    "TrainingContainer": "trainingdocuments",
+    "DocumentToClassifyContainer": "documentstoclassify",
+    "RequirementContainer": "requirementdocuments",
+    "ClassifiedDocuments": "classifieddocuments",
+    "ClassificationResultsTable": "ClassificationResults",
+    "PhraseComparisonContainer": "phrasecomparsioncontainer",
+    "DocumentEmbeddings": "documentembeddings",
+    "Queue": "trigger-queue",
+    "RequirementCategoryFolders": [
+      "developerprofiles",
+      "devopsprofiles",
+      "healthcareprofiles",
+      "healtharticles",
+      "sportarticles",
+      "resumes",
+      "crimearticles"
+    ],
+    "TrainingCategoryFolders": [
+      "developerprofiles",
+      "devopsprofiles",
+      "healthcareprofiles",
+      "healtharticles",
+      "sportarticles",
+      "resumes",
+      "crimearticles"
+    ]
+  }
+}
 
 ```
-The follwing containers have been cretaed 
 
-a) trainingdocuments
-
-b) actualdocuments
-
-c) requirementdocuments
-
-d) phrasecomparsioncontainer
-
-e) classifiedoutput, documentembeddings  (Outputs written by code) 
-
-### 5. Upload Input Files to Azure Blob Storage(Containers)
+### 6. Upload Input Files to Azure Blob Storage(Containers)
 
 The following C# code is used to upload inputs :
 
@@ -213,29 +300,34 @@ Console.WriteLine($"File '{fileName}' uploaded to '{containerName}/{blobName}'."
 
 ```
 
-### 5. Send Queue Message (trigger-queue).
+### 7. Send Queue Message (trigger-queue).
 
 The trigger-queue (from appsettings.json) signals the container to start processing. 
 
-Example queue message (JSON):
+Queue message (JSON):
+
 ```json
 
 {
-  "ExperimentId": "ML 24/25-09",
-  "InputFile": "https://techtweekersstorage.blob.core.windows.net/trainingdocuments/inputDataset.csv",
-  "Name": "Semantic Similarity Processing",
-  "Description": "Runs document preprocessing and similarity calculations",
-  "MessageId": "msg-01",
-  "MessageReceipt": "receipt-token"
+  "ExperimentId": "exp-2025-08-14",
+  "InputFile": "https://techtweekersstorage.blob.core.windows.net/actualdocuments/grace_wilson_healthcare_worker.pdf",
+  "Name": "Semantic Similarity Test 2",
+  "Description": "Second Experiment with Queue",
+  "MessageId": "msg124",
+  "MessageReceipt": "abc457",
+  "TrainingInputFilesUrl": "https://techtweekersstorage.blob.core.windows.net/trainingdocuments",
+  "DocumentsToClassifyUrl": "https://techtweekersstorage.blob.core.windows.net/documentstoclassify",
+  "RequirementDocumentsUrl": "https://techtweekersstorage.blob.core.windows.net/requirementdocuments",
+  "PhraseComparisonFilesUrl": "https://techtweekersstorage.blob.core.windows.net/phrasecomparsioncontainer",
+  "OpenApiKey": "YOUR-API-KEY"
 }
+
 ```
 
 
-### 7. Message Reception (ReceiveExperimentRequestAsync)
+### 8. Message Reception (ReceiveExperimentRequestAsync)
 
-The input file is downloaded locally for processing.
-
-When a message arrives in the queue, it is received and deserialized. 
+The input file is downloaded locally for processing.When a message arrives in the queue, it is received and deserialized. 
 The following code from IStorageProvider in MyCloudProject.Common performs this:
 
 ```csharp
@@ -275,9 +367,9 @@ public async Task<IExerimentRequest> ReceiveExperimentRequestAsync(CancellationT
 
 ```
 
-### 8. Input Download (DownloadInputAsync)
+### 9. Input Download (DownloadInputAsync)
 
-This method downloads the input file from Azure Blob Storage to a local folder for processing.
+Once the request is received, the referenced input files are downloaded from Azure Blob Storage to a local working directory for processing. This ensures all processing happens locally inside the container before output is generated.The below method downloads the input file from Azure Blob Storage.
 
 ```csharp
 
@@ -312,15 +404,16 @@ public async Task<string> DownloadInputAsync(string fileName, IExperimentRequest
 ```
 
 
-### 9. Retrieve Results 
-The experiment logic is invoked from Program.cs as shown belw:
+### 10. Experiment Execution 
+Once all inputs are ready, the main experiment logic is invoked from Program.cs:
 
 ```csharp
 
 IExperimentResult result = await experiment.RunAsync(localFileWithInputArgs);
 
 ```
-### 10. Upload Output (UploadResultAsync)
+### 11. Upload Output (UploadResultAsync)
+After processing, results are uploaded back to Azure Blob Storage in the classifiedoutput container. This ensures processed outputs are accessible for further analysis.
 
 ```csharp
 
@@ -342,13 +435,11 @@ public async Task UploadResultAsync(string experimentName, IExperimentResult res
 
 ```
 
-### 11. Store Results in Table Storage
+### 12. Store Results in Table Storage
 
-Experiment metadata and output URLs are saved in the "ClassificationResults" table.
+In addition to output files, metadata and similarity scores are saved to Azure Table Storage (ClassificationResults table). This allows quick lookups, historical tracking, and dashboard integrations.
 
-image???
-
-### 12. Commit Queue Message (CommitRequestAsync)
+### 13. Commit Queue Message (CommitRequestAsync)
 
 The processed queue message is deleted to prevent reprocessing. 
 The below code is used:
@@ -372,44 +463,54 @@ public async Task CommitRequestAsync(IExerimentRequest request)
 
 ```
 
-### 13 . Output related missing
+### 14. Final Results
+
+After execution:
+
+- **Blob Storage** – Stores classified outputs and generated embeddings.
+- **Table Storage** – Stores experiment metadata and execution logs.
+- **Azure Queue** – Message is deleted after processing to avoid reprocessing.
 
 
 
 <a name="running-experiment"></a>
 
-## How to run experiment  (check please)
-1. Ensure input folders are uploaded to their respective containers:
+## How to Run the Experiment
 
-a. trainingdocuments
+1. **Upload input files** to their respective Azure Blob containers:
+   * `trainingdocuments` – training dataset
+   * `documentstoclassify` – documents to be classified
+   * `requirementdocuments` – reference documents for similarity checks
+   * `phrasecomparsioncontainer` – (optional) phrase comparison CSVs
 
-b. actualdocuments
+2. **Start the worker** in your preferred environment:
+   * Azure Container Instance (ACI)
+   * Local Docker container
+   * Visual Studio run configuration  
 
-c. equirementdocuments
+   > Ensure `OPENAI_API_KEY` and `MYCLOUDPROJECT_ENVIRONMENT=Development` are set so the correct `appsettings.Development.json` is used.
 
-d. phrasecomparsioncontainer
+3. **Submit a trigger message** to the Azure Storage Queue (`trigger-queue`) with required metadata (see *Sample Queue Message* in [Experiment Execution on Azure](#experiment-execution-on-azure)).
 
-2. Start ACI or run locally via Visual Studio/Docker.
+4. **Monitor experiment progress** via container logs (ACI/Docker/Visual Studio).
 
-Start the worker (ACI/Docker/Visual Studio), ensuring OPENAI_API_KEY is set and the config file is picked up (your env key is MYCLOUDPROJECT_ENVIRONMENT=Developement to match appsettings.Developement.json) 
+5. **Review outputs** after completion:
+   * **Blob Storage**:
+     * `classifiedoutput` – classified files
+     * `documentembeddings` – (optional) embeddings CSV
+   * **Azure Table Storage**:
+     * `ClassificationResults` – predicted labels + neighbors
+     * `DocumentSimilarityResults` – document vs requirement scores
+     * `PhraseSimilarityResults` – phrase-pair similarity scores
 
-3. Submit a trigger message to Azure Queue.
-Send a trigger message (plain JSON or Base64 JSON) to the trigger-queue with fields like ExperimentId, Name, Description (and optional InputFile)
 
-4. Results will be saved to:
-
-a. documentembeddings
-
-b. classifiedoutput
-
-c. result-tables (Azure Tables)
-
-Describe Your Cloud Experiment based on the Input/Output you gave in the Previous Section.
 
 
 ### Observation
 
-The label distribution across domains is roughly balanced with a small skew, and the PCA (2D/3D) projections show compact, well-separated clusters by domain, with only a few boundary points drifting toward other groups. Top-K neighbor views are dominated by same-domain matches with high cosine scores, and the per-dimension component traces for paired documents follow similar shapes, indicating that the embedding signal is not overwhelmed by noise. Ranked-similarity charts display a visible gap between the highest and lowest scores, giving a natural cutoff to accept matches or flag them for review. Operationally, the pipeline is populating the expected blobs and tables (inputs in the source containers; outputs in documentembeddings/ and classifieddocuments/; run metadata and scores in the Azure Tables).
+The label distribution across domains remains roughly balanced, with only a minor skew. PCA-based 2D and 3D projections reveal compact, well-separated clusters by domain, with a few boundary points drifting toward other groups. After preprocessing including document chunking, the KNN classification using OpenAI embeddings shows strong same-domain matching in Top-K neighbor views, with high cosine similarity scores.
+
+The per-dimension embedding component traces for paired documents follow similar shapes, confirming that the semantic signal is well preserved and not overwhelmed by noise. Ranked similarity charts display a clear gap between the highest and lowest scores, providing a natural threshold to accept matches or flag them for review. Operationally, the pipeline behaves as expected, the  inputs appear in the correct source containers, chunked embeddings and processed documents are stored in documentembeddings/ and classifieddocuments/, and run metadata plus similarity scores are correctly written to Azure Tables.
 
 <p align="center">
   <img src="./Images/Document Embedding-PCA.jpeg" alt="Results table" width="60%">
@@ -419,7 +520,6 @@ The label distribution across domains is roughly balanced with a small skew, and
  
 ### Conclusion 
 
-The end-to-end workflow (Blob → embeddings → KNN → similarity → Tables/Blobs) is working as intended, and the OpenAI embeddings are sufficiently discriminative for these domains, making KNN a solid baseline. A practical acceptance threshold can be derived from the ranked-similarity elbow; items below that line should be queued for manual check. To improve robustness, balance under-represented classes, add hard negatives (near-miss cross-domain docs), and watch text extraction quality from PDFs. Keep caching embeddings to avoid recompute, monitor the Azure Tables for drift, and version runs via ExperimentMetadata for reproducibility.
-
+The end-to-end workflow (Blob → embeddings → KNN → similarity → Tables/Blobs) is working as intended. OpenAI embeddings are sufficiently discriminative for these domains, making KNN a solid baseline. A practical acceptance threshold can be taken from the “elbow” in the ranked-similarity curve, with items below that threshold queued for manual review. To improve robustness, balance under-represented classes, add hard negatives (near-miss cross-domain documents), and monitor PDF text-extraction quality. Operationally, keep caching embeddings to avoid recomputation, watch Azure Table outputs for drift, and version each run via ExperimentMetadata to ensure reproducibility.
 
 

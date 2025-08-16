@@ -571,10 +571,12 @@ This folder contains:
      * `DocumentSimilarityResults` – document vs requirement scores
      * `PhraseSimilarityResults` – phrase-pair similarity scores
  * **Semantic PCA Plots Streamlit Based Python UI**:
+ * How to visualize results:
+Follow this steps to deploy the streamlit based UI application in local or see contact developers section to get the docker running version URL. 
+[Python Based Installation and Local Setup Prequiste](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2024-2025/blob/TechTweakers/CC_MyWork/SemanticClassificationVisualisation/readme.md) 
      * Four Types of charts are generated using a streamlit based python app which utlizes this blob storage and generated table results for better analysing the similarity scores and classification, here  different types of charts are generated like bar chart to represent distribution of documents in different categories, PCA components of the generated embeddings are utilized to visualise the 2D and 3D based to visualise how embeddings of each documents are grouped together in a high dimensional vector spaces.
      * By selecting the individual files that are uploaded for the documents to be classified can be selected in the dropdown to provide validation option to the user by identifying if the top neigbours files are closely relatedd to the predicted labels and the category.
      * Embedding Component Chart - Help to generate the embedding component in X-axis vs cosine similarity score in Y-axis between any two selected documents to visaulise the similarity of embeddings in high dimensional vector space also help to confirm that embeddings are generated in the output of the document embeddings folder.
-
     
 
 *  * **Document Similarity Streamlit Based Python UI**:

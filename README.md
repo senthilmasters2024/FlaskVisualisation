@@ -576,7 +576,7 @@ This folder contains:
      * Embedding Component Chart - Help to generate the embedding component in X-axis vs cosine similarity score in Y-axis between any two selected documents to visaulise the similarity of embeddings in high dimensional vector space also help to confirm that embeddings are generated in the output of the document embeddings folder.
 
        <p align="center">
-  <img src="./SemanticPCAPlotsStreamLitApp.jpeg" alt="Results table" width="60%">
+  <img src="./SemanticPCAPlotsStreamLitApp.jpg" alt="Results table" width="60%">
   <em>Figure 3. Semantic Analysis For Classfication PCA Plots</em>
 
 *  * **Document Similarity Streamlit Based Python UI**:
@@ -585,8 +585,6 @@ This folder contains:
    <p align="center">
   <img src="./DocumentSimilartyPlotTab.jpeg" alt="Results table" width="60%">
   <em>Figure 4. Document Similartiy Scatter Plots</em>
-
-<a name="unitest"></a>
 
 ### Unit Test
 

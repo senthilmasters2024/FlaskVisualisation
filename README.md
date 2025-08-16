@@ -623,14 +623,20 @@ The Embedding Components (scalar values) view shows a component-wise comparison 
 The overall similarity between the two embeddings is calculated using cosine similarity, which in this case is 0.4426. This moderate score reflects that while both documents share a common crime-related theme, they are not identical in semantic content. The overlapping patterns of the two series across most dimensions confirm shared features, while variations in certain regions highlight domain-specific differences.
  
  <p align="center">
-  <img src="./Embedding_Component_Murders.jpg" alt="SemanticPCAPlotsStreamLitApp" width="120%">
+  <img src="./Embedding_Component_Murders.jpg" alt="SemanticPCAPlotsStreamLitApp" width="150%">
   <em>Figure 7. Visualising Embedding Component between Any Two Documents</em>
 
-The below chart shows the similarity distribution for documents in the resumes domain, where each point represents a pairwise similarity score between documents sorted in ascending order. The y-axis indicates similarity values, with the dotted horizontal line marking the threshold at 0.50. Documents with the highest similarity scores are highlighted in green, such as the pair HR_Generalist_Requirements.pdf and another resume with a similarity score of 0.6118, indicating strong alignment. In contrast, documents with the lowest similarity scores are shown in red, reflecting weaker semantic relationships, while the remaining cases fall in between as grey points. Overall, the chart demonstrates that the model effectively distinguishes resumes with close semantic relevance from those that are only loosely related.
+The below chart in Figure 8 shows the similarity distribution for documents in the resumes domain, where each point represents a pairwise similarity score between documents sorted in ascending order. The y-axis indicates similarity values, with the dotted horizontal line marking the threshold at 0.50. Documents with the highest similarity scores are highlighted in green, such as the pair HR_Generalist_Requirements.pdf and another resume with a similarity score of 0.6118, indicating strong alignment. In contrast, documents with the lowest similarity scores are shown in red, reflecting weaker semantic relationships, while the remaining cases fall in between as grey points. Overall, the chart demonstrates that the model effectively distinguishes resumes with close semantic relevance from those that are only loosely related.
 
  <p align="center">
-  <img src="./DocumentSimilarityScoresResumes.jpg" alt="DocumentSimilarityScore" width="120%">
+  <img src="./DocumentSimilarityScoresResumes.jpg" alt="DocumentSimilarityScore" width="150%">
   <em>Figure 8. Document Similartiy Score Documents Based on Rank in X-axis vs Similarity Score in Y axis</em>
+
+The below chart in Figure 9 shows the similarity distribution for documents in the crimearticles domain, with similarity scores plotted on the y-axis and ranked in ascending order on the x-axis. Documents with the lowest similarity values are highlighted in red, such as the pair Crime_Requirement_20250814-0234.pdf and Luis_Iberico_(politician).pdf, which achieved a similarity score of 0.1146, indicating minimal semantic overlap. At the other end, the highest similarity scores are highlighted in green, reflecting pairs of documents that are strongly related in content. The grey points represent intermediate cases. Overall, the chart demonstrates that while some crime-related documents share very little in common, others are closely aligned, and the model effectively captures these variations in semantic similarity within the domain
+
+<p align="center">
+  <img src="./CrimeSimilarityScore.jpg" alt="DocumentSimilarityScore" width="150%">
+  <em>Figure 9. Document Similartiy Score Documents Based on Rank in X-axis vs Similarity Score in Y axis</em>
  
 ### Conclusion 
 

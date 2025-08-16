@@ -614,12 +614,12 @@ The alignment between predicted and actual category proportions indicates that t
 
 The below chart shows the distribution of predicted labels across different domains, where Crime Articles and Resumes appear as the most frequent categories with counts closely matching their actual dataset proportions. In contrast, Sports Articles and Health Articles occur less frequently, and the model has correctly reflected this lower representation. Overall, the alignment between predicted and actual category proportions demonstrates that the model is classifying documents accurately according to their respective domains.
 <p align="center">
-  <img src="./ClassifiedDocumentsDistribution.jpg" alt="Results table" width="60%">
+  <img src="./ClassifiedDocumentsDistribution.jpg" alt="Results table1" width="60%">
   <em>Figure .5 ClassifiedDocumentsDistribution</em>
 
 The PCA visualizations in both 2D and 3D demonstrate how the document embeddings cluster according to their semantic domains. The results show that Crime Articles and Resumes form distinct and well-separated groups, highlighting strong domain-specific patterns in the embeddings. Similarly, although smaller in number, Sports Articles and Health Articles also cluster closely within their respective categories, reflecting accurate separation despite limited samples. Overall, the tight grouping within domains and clear separation between different domains indicate that the embedding model effectively captures semantic relationships and supports reliable document classification.
 <p align="center">
-  <img src="./PCA-2D-3D.jpg" alt="Results table" width="60%">
+  <img src="./PCA-2D-3D.jpg" alt="Results table2" width="60%">
 
  
 ### Conclusion 

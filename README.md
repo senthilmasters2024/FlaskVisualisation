@@ -601,29 +601,25 @@ The label distribution across domains remains roughly balanced, with only a mino
 
 The per-dimension embedding component traces for paired documents follow similar shapes, confirming that the semantic signal is well preserved and not overwhelmed by noise. Ranked similarity charts display a clear gap between the highest and lowest scores, providing a natural threshold to accept matches or flag them for review. Operationally, the pipeline behaves as expected, the  inputs appear in the correct source containers, chunked embeddings and processed documents are stored in documentembeddings/ and classifieddocuments/, and run metadata plus similarity scores are correctly written to Azure Tables.
 
-
-
-
-<p align="center">
-  <img src="./Document Embedding-PC.jpeg" alt="Results table" width="60%">
-  <em>Figure .4 Semantic Analysis For Classfication PCA Plots</em>
-<p align="center">
-  <img src="./PCA-2D-3D.jpeg" alt="Results table" width="60%">
-
   <a name="concln"></a>
 
 Generated different types of results helps to analyse and observe whats actually happening and how flexible this tool can be utilized for different usecases,
 
 <img width="1156" height="503" alt="image" src="https://github.com/user-attachments/assets/504bd28b-57d2-4338-a77a-bba24ab9896f" />
 
-<p align="center">
-  <img src="./ClassifiedDocumentDistribution.jpg" alt="Results table" width="60%">
-
-
 **Observation 1:**
 The chart shows the distribution of predicted labels across different domains.
 Crime Articles and Resumes are the most frequent categories, with counts close to their actual dataset proportions.Sports Articles and Health Articles are fewer in number, and the model has correctly reflected this distribution.
 The alignment between predicted and actual category proportions indicates that the model is classifying documents properly according to their respective domains.
+
+The below chart shows the distribution of predicted labels across different domains, where Crime Articles and Resumes appear as the most frequent categories with counts closely matching their actual dataset proportions. In contrast, Sports Articles and Health Articles occur less frequently, and the model has correctly reflected this lower representation. Overall, the alignment between predicted and actual category proportions demonstrates that the model is classifying documents accurately according to their respective domains.
+<p align="center">
+  <img src="./ClassifiedDocumentsDistribution.jpeg" alt="Results table" width="60%">
+  <em>Figure .5 ClassifiedDocumentsDistribution</em>
+
+The PCA visualizations in both 2D and 3D demonstrate how the document embeddings cluster according to their semantic domains. The results show that Crime Articles and Resumes form distinct and well-separated groups, highlighting strong domain-specific patterns in the embeddings. Similarly, although smaller in number, Sports Articles and Health Articles also cluster closely within their respective categories, reflecting accurate separation despite limited samples. Overall, the tight grouping within domains and clear separation between different domains indicate that the embedding model effectively captures semantic relationships and supports reliable document classification.
+<p align="center">
+  <img src="./PCA-2D-3D.jpeg" alt="Results table" width="60%">
 
  
 ### Conclusion 

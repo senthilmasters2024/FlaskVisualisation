@@ -575,16 +575,20 @@ This folder contains:
      * By selecting the individual files that are uploaded for the documents to be classified can be selected in the dropdown to provide validation option to the user by identifying if the top neigbours files are closely relatedd to the predicted labels and the category.
      * Embedding Component Chart - Help to generate the embedding component in X-axis vs cosine similarity score in Y-axis between any two selected documents to visaulise the similarity of embeddings in high dimensional vector space also help to confirm that embeddings are generated in the output of the document embeddings folder.
 
-       <p align="center">
-  <img src="./SemanticPCAPlotsStreamLitApp.jpg" alt="SemanticPCAPlotsStreamLitApp" width="60%">
-  <em>Figure 3. Semantic Analysis For Classfication PCA Plots</em>
+    
 
 *  * **Document Similarity Streamlit Based Python UI**:
      * Helps to generate scatter plots having representation of rank in the x-axis vs similiarty score in the y-axis, helps to represent the top and lowest similarity scores among 1000´s of documents that are used in the process, each predicated categories like top similarity score, low similarity and avarge score between the top and lowest are represented in different colors.
      * The Document Similarity Explorer provides an interactive way to analyze similarity scores between documents stored in Azure Table Storage. Users can connect using a SAS URL and select specific domains (e.g., crimearticles, resumes, healtharticles, sportarticles) to visualize results. The left panel includes controls to adjust the number of top and least similar documents displayed, set a similarity threshold, filter by filenames, and refresh or clear cached results. The main chart on the right plots documents ranked by similarity score, with the y-axis representing similarity values and a horizontal dotted line showing the chosen threshold. Points are color-coded to highlight the most similar documents (green), the least similar documents (red), and others (grey). This setup allows users to quickly identify strong and weak similarity relationships within each domain and validate how well the classification model distinguishes between documents.
-   <p align="center">
+
+ <p align="center">
   <img src="./DocumentSimilartyPlotTab.jpg" alt="Results table" width="60%">
   <em>Figure 4. Document Similartiy Scatter Plots</em>
+     
+    * 
+  
+
+
 
 ### Unit Test
 
@@ -607,20 +611,26 @@ Generated different types of results helps to analyse and observe whats actually
 
 <img width="1156" height="503" alt="image" src="https://github.com/user-attachments/assets/504bd28b-57d2-4338-a77a-bba24ab9896f" />
 
-**Observation 1:**
+**Example Observation 1:**
 The chart shows the distribution of predicted labels across different domains.
 Crime Articles and Resumes are the most frequent categories, with counts close to their actual dataset proportions.Sports Articles and Health Articles are fewer in number, and the model has correctly reflected this distribution.
 The alignment between predicted and actual category proportions indicates that the model is classifying documents properly according to their respective domains.
 
 The below chart shows the distribution of predicted labels across different domains, where Crime Articles and Resumes appear as the most frequent categories with counts closely matching their actual dataset proportions. In contrast, Sports Articles and Health Articles occur less frequently, and the model has correctly reflected this lower representation. Overall, the alignment between predicted and actual category proportions demonstrates that the model is classifying documents accurately according to their respective domains.
-<p align="center">
-  <img src="./ClassifiedDocumentsDistribution.jpg" alt="Results table1" width="60%">
-  <em>Figure .5 ClassifiedDocumentsDistribution</em>
+   <p align="center">
+  <img src="./SemanticPCAPlotsStreamLitApp.jpg" alt="SemanticPCAPlotsStreamLitApp" width="60%">
+  <em>Figure 3. Semantic Analysis For Classfication PCA Plots</em>
 
 The PCA visualizations in both 2D and 3D demonstrate how the document embeddings cluster according to their semantic domains. The results show that Crime Articles and Resumes form distinct and well-separated groups, highlighting strong domain-specific patterns in the embeddings. Similarly, although smaller in number, Sports Articles and Health Articles also cluster closely within their respective categories, reflecting accurate separation despite limited samples. Overall, the tight grouping within domains and clear separation between different domains indicate that the embedding model effectively captures semantic relationships and supports reliable document classification.
 <p align="center">
   <img src="./PCA-2D-3D.jpg" alt="Results table2" width="60%">
  <em>Figure .6 PCA Plots To Represent Clusters</em>
+
+The Embedding Components (scalar values) view shows a component-wise comparison of two documents, lululemon murder and murder of umesh kolhe, both belonging to the crimearticles domain. Each document is represented as a high-dimensional embedding vector, and the plot aligns their values across all 3,072 dimensions. The blue line corresponds to the first document, while the red line corresponds to the second.
+The overall similarity between the two embeddings is calculated using cosine similarity, which in this case is 0.4426. This moderate score reflects that while both documents share a common crime-related theme, they are not identical in semantic content. The overlapping patterns of the two series across most dimensions confirm shared features, while variations in certain regions highlight domain-specific differences.
+ <p align="center">
+  <img src="./Embedding_Component_Murders.jpg" alt="SemanticPCAPlotsStreamLitApp" width="60%">
+  <em>Figure 3. Visualising Embedding Component between Any Two Documents</em>
  
 ### Conclusion 
 

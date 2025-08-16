@@ -585,11 +585,6 @@ This folder contains:
   <img src="./DocumentSimilartyPlotTab.jpg" alt="Results table" width="60%">
   <em>Figure 4. Document Similartiy Scatter Plots</em>
      
-    * 
-  
-
-
-
 ### Unit Test
 
 Validates the complete pipeline, including: loading input documents, generating embeddings, performing document and phrase similarity analysis, saving outputs locally `bin\Debug\net8.0`, uploading results to Azure Blob Storage, and logging metadata to Azure Table Storage.
@@ -619,16 +614,17 @@ The alignment between predicted and actual category proportions indicates that t
 The below chart shows the distribution of predicted labels across different domains, where Crime Articles and Resumes appear as the most frequent categories with counts closely matching their actual dataset proportions. In contrast, Sports Articles and Health Articles occur less frequently, and the model has correctly reflected this lower representation. Overall, the alignment between predicted and actual category proportions demonstrates that the model is classifying documents accurately according to their respective domains.
 
 The PCA visualizations in both 2D and 3D demonstrate how the document embeddings cluster according to their semantic domains. The results show that Crime Articles and Resumes form distinct and well-separated groups, highlighting strong domain-specific patterns in the embeddings. Similarly, although smaller in number, Sports Articles and Health Articles also cluster closely within their respective categories, reflecting accurate separation despite limited samples. Overall, the tight grouping within domains and clear separation between different domains indicate that the embedding model effectively captures semantic relationships and supports reliable document classification.
+
 <p align="center">
-  <img src="./PCA-2D-3D.jpeg" alt="Results table2" width="100%">
+  <img src="./PCA-2D-3D.jpeg" alt="Results table2" width="120%">
  <em>Figure .6 PCA Plots To Represent Clusters</em>
 
 The Embedding Components (scalar values) view shows a component-wise comparison of two documents, lululemon murder and murder of umesh kolhe, both belonging to the crimearticles domain. Each document is represented as a high-dimensional embedding vector, and the plot aligns their values across all 3,072 dimensions. The blue line corresponds to the first document, while the red line corresponds to the second.
 The overall similarity between the two embeddings is calculated using cosine similarity, which in this case is 0.4426. This moderate score reflects that while both documents share a common crime-related theme, they are not identical in semantic content. The overlapping patterns of the two series across most dimensions confirm shared features, while variations in certain regions highlight domain-specific differences.
  
  <p align="center">
-  <img src="./Embedding_Component_Murders.jpg" alt="SemanticPCAPlotsStreamLitApp" width="100%">
-  <em>Figure 3. Visualising Embedding Component between Any Two Documents</em>
+  <img src="./Embedding_Component_Murders.jpg" alt="SemanticPCAPlotsStreamLitApp" width="120%">
+  <em>Figure 7. Visualising Embedding Component between Any Two Documents</em>
  
 ### Conclusion 
 

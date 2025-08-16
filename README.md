@@ -583,7 +583,7 @@ This folder contains:
      * Helps to generate scatter plots having representation of rank in the x-axis vs similiarty score in the y-axis, helps to represent the top and lowest similarity scores among 1000´s of documents that are used in the process, each predicated categories like top similarity score, low similarity and avarge score between the top and lowest are represented in different colors.
      * The Document Similarity Explorer provides an interactive way to analyze similarity scores between documents stored in Azure Table Storage. Users can connect using a SAS URL and select specific domains (e.g., crimearticles, resumes, healtharticles, sportarticles) to visualize results. The left panel includes controls to adjust the number of top and least similar documents displayed, set a similarity threshold, filter by filenames, and refresh or clear cached results. The main chart on the right plots documents ranked by similarity score, with the y-axis representing similarity values and a horizontal dotted line showing the chosen threshold. Points are color-coded to highlight the most similar documents (green), the least similar documents (red), and others (grey). This setup allows users to quickly identify strong and weak similarity relationships within each domain and validate how well the classification model distinguishes between documents.
    <p align="center">
-  <img src="./DocumentSimilartyPlotTab.jpeg" alt="Results table" width="60%">
+  <img src="./DocumentSimilartyPlotTab.jpg" alt="Results table" width="60%">
   <em>Figure 4. Document Similartiy Scatter Plots</em>
 
 ### Unit Test

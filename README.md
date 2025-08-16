@@ -617,7 +617,7 @@ The PCA visualizations in both 2D and 3D demonstrate how the document embeddings
 
 <p align="center">
   <img src="./PCA-2D-3D.jpeg" alt="Results table2" width="120%">
- <em>Figure .6 PCA Plots To Represent Clusters</em>
+ <em>Figure 6. PCA Plots To Represent Clusters</em>
 
 The Embedding Components (scalar values) view shows a component-wise comparison of two documents, lululemon murder and murder of umesh kolhe, both belonging to the crimearticles domain. Each document is represented as a high-dimensional embedding vector, and the plot aligns their values across all 3,072 dimensions. The blue line corresponds to the first document, while the red line corresponds to the second.
 The overall similarity between the two embeddings is calculated using cosine similarity, which in this case is 0.4426. This moderate score reflects that while both documents share a common crime-related theme, they are not identical in semantic content. The overlapping patterns of the two series across most dimensions confirm shared features, while variations in certain regions highlight domain-specific differences.
@@ -625,6 +625,12 @@ The overall similarity between the two embeddings is calculated using cosine sim
  <p align="center">
   <img src="./Embedding_Component_Murders.jpg" alt="SemanticPCAPlotsStreamLitApp" width="120%">
   <em>Figure 7. Visualising Embedding Component between Any Two Documents</em>
+
+The below chart shows the similarity distribution for documents in the resumes domain, where each point represents a pairwise similarity score between documents sorted in ascending order. The y-axis indicates similarity values, with the dotted horizontal line marking the threshold at 0.50. Documents with the highest similarity scores are highlighted in green, such as the pair HR_Generalist_Requirements.pdf and another resume with a similarity score of 0.6118, indicating strong alignment. In contrast, documents with the lowest similarity scores are shown in red, reflecting weaker semantic relationships, while the remaining cases fall in between as grey points. Overall, the chart demonstrates that the model effectively distinguishes resumes with close semantic relevance from those that are only loosely related.
+
+ <p align="center">
+  <img src="./DocumentSimilarityScoresResumes.jpg" alt="DocumentSimilarityScore" width="120%">
+  <em>Figure 8. Document Similartiy Score Documents Based on Rank in X-axis vs Similarity Score in Y axis</em>
  
 ### Conclusion 
 

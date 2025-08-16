@@ -635,7 +635,7 @@ The below chart in Figure 8 shows the similarity distribution for documents in t
 The below chart in Figure 9 shows the similarity distribution for documents in the crimearticles domain, with similarity scores plotted on the y-axis and ranked in ascending order on the x-axis. Documents with the lowest similarity values are highlighted in red, such as the pair Crime_Requirement_20250814-0234.pdf and Luis_Iberico_(politician).pdf, which achieved a similarity score of 0.1146, indicating minimal semantic overlap. At the other end, the highest similarity scores are highlighted in green, reflecting pairs of documents that are strongly related in content. The grey points represent intermediate cases. Overall, the chart demonstrates that while some crime-related documents share very little in common, others are closely aligned, and the model effectively captures these variations in semantic similarity within the domain
 
 <p align="center">
-  <img src="./CrimeSimilarityScore.jpg" alt="DocumentSimilarityScore" width="150%">
+  <img src="./CrimeSimilarityScore.jpg" alt="CrimeSimilarityScore" width="150%">
   <em>Figure 9. Document Similartiy Score Documents Based on Rank in X-axis vs Similarity Score in Y axis</em>
  
 ### Conclusion 

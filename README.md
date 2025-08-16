@@ -589,10 +589,10 @@ The label distribution across domains remains roughly balanced, with only a mino
 The per-dimension embedding component traces for paired documents follow similar shapes, confirming that the semantic signal is well preserved and not overwhelmed by noise. Ranked similarity charts display a clear gap between the highest and lowest scores, providing a natural threshold to accept matches or flag them for review. Operationally, the pipeline behaves as expected, the  inputs appear in the correct source containers, chunked embeddings and processed documents are stored in documentembeddings/ and classifieddocuments/, and run metadata plus similarity scores are correctly written to Azure Tables.
 
 <p align="center">
-  <img src="./Images/Document Embedding-PCA.jpeg" alt="Results table" width="60%">
+  <img src="./Document Embedding-PCA.jpeg" alt="Results table" width="60%">
 
 <p align="center">
-  <img src="./Images/PCA-2D-3D.jpeg" alt="Results table" width="60%">
+  <img src="./PCA-2D-3D.jpeg" alt="Results table" width="60%">
 
   <a name="concln"></a>
  

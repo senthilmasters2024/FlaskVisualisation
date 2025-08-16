@@ -623,7 +623,7 @@ The below chart shows the distribution of predicted labels across different doma
 
 The PCA visualizations in both 2D and 3D demonstrate how the document embeddings cluster according to their semantic domains. The results show that Crime Articles and Resumes form distinct and well-separated groups, highlighting strong domain-specific patterns in the embeddings. Similarly, although smaller in number, Sports Articles and Health Articles also cluster closely within their respective categories, reflecting accurate separation despite limited samples. Overall, the tight grouping within domains and clear separation between different domains indicate that the embedding model effectively captures semantic relationships and supports reliable document classification.
 <p align="center">
-  <img src="./PCA-2D-3D.jpg" alt="Results table2" width="60%">
+  <img src="./PCA-2D-3D.jpeg" alt="Results table2" width="60%">
  <em>Figure .6 PCA Plots To Represent Clusters</em>
 
 The Embedding Components (scalar values) view shows a component-wise comparison of two documents, lululemon murder and murder of umesh kolhe, both belonging to the crimearticles domain. Each document is represented as a high-dimensional embedding vector, and the plot aligns their values across all 3,072 dimensions. The blue line corresponds to the first document, while the red line corresponds to the second.

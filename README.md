@@ -591,7 +591,7 @@ This folder contains:
 Validates the complete pipeline, including: loading input documents, generating embeddings, performing document and phrase similarity analysis, saving outputs locally `bin\Debug\net8.0`, uploading results to Azure Blob Storage, and logging metadata to Azure Table Storage.
 
 <p align="center">
-  <img src="./Images/unit testing.jpeg" alt="unittesting" width="60%">
+  <img src="./unit testing.jpeg" alt="unittesting" width="60%">
 
 <a name="obsrvtn"></a>
 
@@ -620,7 +620,7 @@ The below chart shows the distribution of predicted labels across different doma
 The PCA visualizations in both 2D and 3D demonstrate how the document embeddings cluster according to their semantic domains. The results show that Crime Articles and Resumes form distinct and well-separated groups, highlighting strong domain-specific patterns in the embeddings. Similarly, although smaller in number, Sports Articles and Health Articles also cluster closely within their respective categories, reflecting accurate separation despite limited samples. Overall, the tight grouping within domains and clear separation between different domains indicate that the embedding model effectively captures semantic relationships and supports reliable document classification.
 <p align="center">
   <img src="./PCA-2D-3D.jpg" alt="Results table2" width="60%">
-
+ <em>Figure .6 PCA Plots To Represent Clusters</em>
  
 ### Conclusion 
 
